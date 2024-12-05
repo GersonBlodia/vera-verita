@@ -12,7 +12,7 @@ export interface Producto {
   precio: number;
   img: string;
   tipo_producto: string;
-  pedidoId: number;  // Aquí se agrega la propiedad 'pedidoId'
+  
 }
 interface MainProductProps {
   productos: Producto[];

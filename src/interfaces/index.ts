@@ -9,7 +9,7 @@ export interface Producto {
     precio: number;
     img: string;
     tipo_producto: string;
-    pedidoId: number | null; // Cambia undefined a null
+    
   }
   
   export interface Usuario {
