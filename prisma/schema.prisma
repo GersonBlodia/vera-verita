@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Producto {
+  id                  Int     @id @default(autoincrement())
+  nombre              String
+  cantidad_disponible Int
+  precio              Float
+  img                 String // URL o ruta de la imagen del producto
+  tipo_producto       String // Tipo de producto, ej. "Comida", "Bebida", etc.
+  ventas              Venta[]
+  pedidos             OrderItem[] // Relación con el pedido a través de la tabla OrderItem
+}
+
+model Usuario {
+  id       Int      @id @default(autoincrement())
+  nombre   String     @unique
+  pedidos  Pedido[]
+  Venta    Venta[]
+}
+
+model Venta {
+  id          Int      @id @default(autoincrement())
+  usuario_id  Int
+  producto_id Int
+  cantidad    Int
+  total       Float
+  fecha       DateTime @default(now())
+  img         String // Imagen asociada a la venta (por ejemplo, imagen del recibo)
+  usuario     Usuario  @relation(fields: [usuario_id], references: [id])
+  producto    Producto @relation(fields: [producto_id], references: [id])
+}
+
+model Pedido {
+  id             Int        @id @default(autoincrement())
+  usuario_id     Int
+  fecha_registro DateTime   @default(now())
+  fecha_entrega  DateTime
+  estado         String
+    
+  usuario        Usuario    @relation(fields: [usuario_id], references: [id])
+  orderItems     OrderItem[] // Relación con productos a través de OrderItem
+}
+
+model OrderItem {
+  id          Int     @id @default(autoincrement())
+  cantidad    Int     // Cantidad del producto en el pedido
+  total       Float   // Total para este producto (cantidad * precio)
+  producto_id Int     // ID del producto
+  pedido_id   Int     // ID del pedido
+  producto    Producto @relation(fields: [producto_id], references: [id])
+  pedido      Pedido   @relation(fields: [pedido_id], references: [id])
+}

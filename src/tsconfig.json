@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./", 
+    "paths": {
+      "@/*": ["src/*"]  // Esto le dice a TypeScript cómo resolver el alias "@"
+    },
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "strict": true,
+    "jsx": "react-jsx"
+  }
+}

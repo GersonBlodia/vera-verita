@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ 
+@layer components {
+  .card {
+    @apply shadow-lg rounded-lg p-4 bg-white transition transform hover:scale-105 hover:shadow-2xl;
+  }
+}
